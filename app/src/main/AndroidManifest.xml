@@ -33,6 +33,18 @@
             android:name=".activities.MinutesActivity"
             android:label="@string/app_name" />
         <activity
+            android:name=".activities.SearchActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activities.MembersActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activities.ReportsActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activities.PaymentCardCollections"
+            android:label="@string/app_name" />
+        <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/app_name" />
         <activity

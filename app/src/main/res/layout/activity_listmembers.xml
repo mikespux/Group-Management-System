@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/toolbar" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="#ffffff"
+            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTintMode="src_over"
+            android:elevation="20dp"
+            android:focusable="false"
+            android:iconifiedByDefault="false"
+            android:inputType="phone"
+            android:queryBackground="@color/colorWhite"></SearchView>
+        <ListView
+        android:id="@+id/lvMembers"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@color/colorPrimary"
+        android:dividerHeight="2.0dip"
+        android:choiceMode="singleChoice"
+        android:layout_weight="2.4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

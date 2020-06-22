@@ -15,6 +15,7 @@ import com.gms.R;
 import com.gms.activities.CalendarActivity;
 import com.gms.activities.ContributionsActivity;
 import com.gms.activities.MainActivity;
+import com.gms.activities.MembersActivity;
 import com.gms.activities.MinutesActivity;
 
 public class HomeFragment extends Fragment {
@@ -54,7 +55,13 @@ public class HomeFragment extends Fragment {
                 startActivity(mIntent);
             }
         });
-
+        LtMembers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mIntent= new Intent(getActivity(), MembersActivity.class);
+                startActivity(mIntent);
+            }
+        });
 
         LtCalendar.setOnClickListener(new View.OnClickListener() {
             @Override

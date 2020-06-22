@@ -32,16 +32,34 @@
       android:layout_marginLeft="16dp"
       android:layout_marginRight="16dp"
       />
-
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center">
+    <TextView
+        android:id="@+id/add_event"
+        android:layout_weight="0.5"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Create Event"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/btn_rounded_small"/>
   <TextView
       android:id="@+id/textView"
-      android:layout_marginLeft="16dp"
+      android:layout_weight="1"
+      android:layout_marginLeft="5dp"
       android:layout_marginRight="16dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:textAppearance="?android:attr/textAppearanceSmall"
       />
+</LinearLayout>
   <LinearLayout
       android:orientation="vertical"
       android:layout_width="match_parent"
@@ -85,7 +103,7 @@
     </TableRow>
 
     <ListView
-        android:id="@+id/lvMinutes"
+        android:id="@+id/lvEvents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/colorPrimary"

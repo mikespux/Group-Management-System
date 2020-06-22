@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -47,6 +48,7 @@ public class MinutesActivity extends AppCompatActivity {
 
     Boolean success = true;
     AlertDialog dMinute;
+    Intent mIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +86,13 @@ public class MinutesActivity extends AppCompatActivity {
         LtPrevious=findViewById(R.id.ltPrevious);
         LtSearch=findViewById(R.id.ltSearch);
 
-
+        LtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mIntent= new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(mIntent);
+            }
+        });
 
 
 

@@ -59,7 +59,13 @@ public class DBHelper extends SQLiteOpenHelper {
 				Database.CLOUDID + " TEXT)";
 
 
-
+		//Event Table
+		String event_table_sql = "create table " + Database.EVENT_TABLE_NAME + "( " +
+				Database.ROW_ID + " integer  primary key autoincrement," +
+				Database.EVENT_NAME + " TEXT," +
+				Database.EVENT_DATE + " TEXT," +
+				Database.EVENT_TIME + " TEXT," +
+				Database.CLOUDID + " TEXT)";
 
 
 
@@ -83,6 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		try {
 			database.execSQL(user_table_sql);
 			database.execSQL(minute_table_sql);
+			database.execSQL(event_table_sql);
 			// These are Default Values
 			database.execSQL(DefaultUser);
 
@@ -189,11 +196,11 @@ public class DBHelper extends SQLiteOpenHelper {
 	// FUNCTIONS///////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////
 
-	public Cursor SearchClient(String Name) {
+	public Cursor SearchMember(String Name) {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor myCursor = db.query(Database.USERS_TABLE_NAME,
-				new String[] { Database.ROW_ID,Database.FULLNAME , Database.NATIONALID, Database.MOBILENO },
+				new String[] { Database.ROW_ID,Database.MEMBERCODE,Database.FULLNAME , Database.NATIONALID, Database.MOBILENO },
 				Database.FULLNAME + " LIKE ? OR "+Database.NATIONALID + " LIKE ? OR "+Database.MOBILENO + " LIKE ?",
 				new String[] {"%"+  Name+ "%" ,"%"+  Name+ "%","%"+  Name+ "%"},null,null,Database.FULLNAME +" COLLATE NOCASE ASC");
 
@@ -204,7 +211,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		return myCursor;
 	}
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public Cursor SearchSpecificClient(String Name) {
+	public Cursor SearchSpecificMember(String Name) {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor myCursor = db.query(true, Database.USERS_TABLE_NAME, null, Database.FULLNAME + "='" + Name + "' OR " + Database.NATIONALID + "='" + Name + "' OR " +Database.MOBILENO + "='" + Name + "' ", null, null, null, Database.FULLNAME + " ASC ", null, null);
@@ -263,5 +270,13 @@ public class DBHelper extends SQLiteOpenHelper {
 		return db.insert(Database.MINUTE_TABLE_NAME, null, initialValues);
 
 	}
+	public long AddEvent(String s_evName,String s_evDate,String s_evTime) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(Database.EVENT_NAME, s_evName);
+		initialValues.put(Database.EVENT_DATE, s_evDate);
+		initialValues.put(Database.EVENT_TIME, s_evTime);
+		return db.insert(Database.EVENT_TABLE_NAME, null, initialValues);
 
+	}
 }

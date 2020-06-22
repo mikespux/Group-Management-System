@@ -48,18 +48,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/enter_your_name_as_it_appear_on_id"
-            android:textColor="@color/colorBlack"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enter_your_name_as_it_appear_on_id"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorBlack"
+                   />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_fullname"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
 
 
                 <TextView
@@ -74,7 +77,9 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/et_membercode"
                     android:inputType="textCapCharacters"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"/>
 
     </LinearLayout>
             <LinearLayout
@@ -88,13 +93,16 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/enter_your_national_id"
-                    android:textColor="@color/colorBlack"/>
+                    android:textColor="@color/colorBlack"
+                    />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/et_nationalid"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"/>
 
 
                 <TextView
@@ -108,7 +116,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/et_email"
-                    android:inputType="textEmailAddress"/>
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -122,7 +132,9 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/et_mobileno"
                     android:inputType="textPhonetic"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"/>
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"

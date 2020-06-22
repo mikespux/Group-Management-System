@@ -20,13 +20,18 @@ public class Database {
 
 
 
-    //Agent Table
+    //Minute Table
     public static final String MINUTE_TABLE_NAME= "minutes";
     public static final String MIN_NAME = "minName";
     public static final String MIN_DATE = "minDate";
     public static final String MIN_TIME = "minTime";
 
 
+    //Minute Table
+    public static final String EVENT_TABLE_NAME= "events";
+    public static final String EVENT_NAME = "eventName";
+    public static final String EVENT_DATE = "eventDate";
+    public static final String EVENT_TIME = "eventTime";
 
 
 }
