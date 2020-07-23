@@ -128,12 +128,18 @@ public class MainActivity extends AppCompatActivity {
                     ft.commit();
                 }
                 break;
+
+            case R.id.nav_chat:
+                mIntent = new Intent(getApplicationContext(), ChatActivity.class);
+                startActivity(mIntent);
+                break;
             case R.id.nav_reports:
                 mIntent = new Intent(getApplicationContext(), ReportsActivity.class);
                 startActivity(mIntent);
                 break;
             case R.id.nav_notifications:
-
+                mIntent = new Intent(getApplicationContext(), NotificationActivity.class);
+                startActivity(mIntent);
                 break;
             case R.id.nav_settings:
                 finish();

@@ -1,12 +1,16 @@
 package com.gms.activities;
 
+import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +22,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gms.R;
+import com.gms.cloud.RestApiRequest;
 import com.gms.database.DBHelper;
+import com.gms.database.Database;
 import com.gms.utils.Tools;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -32,7 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     String userName,userPassword;
     DBHelper dbhelper;
     SQLiteDatabase db;
-    SharedPreferences prefs ;
+    SharedPreferences prefs;
+    String restApiResponse;
+    int response;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         ((View) findViewById(R.id.sign_up)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mIntent= new Intent(getApplicationContext(), SigupActivity.class);
+                mIntent= new Intent(getApplicationContext(), SignupActivity.class);
                 startActivity(mIntent);
                 Snackbar.make(parent_view, "Sign Up", Snackbar.LENGTH_SHORT).show();
             }
@@ -58,7 +66,20 @@ public class LoginActivity extends AppCompatActivity {
         db= dbhelper.getReadableDatabase();
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        Cursor code = dbhelper.fetchCode();
+     if(code.getCount()>0){
 
+
+         code.moveToFirst();
+         Log.i("Code Count",String.valueOf(code.getCount()));
+         Log.i("Verification Code",code.getString(code.getColumnIndex(Database.VERYCODE)));
+        if(Integer.parseInt(code.getString(code.getColumnIndex(Database.VERYCODE)))==0){
+
+            finish();
+            Intent login =new Intent(LoginActivity.this, SignupActivity.class);
+            startActivity(login);
+        }
+     }
         et_mobileno = findViewById(R.id.et_mobileno);
         et_password = findViewById(R.id.et_password);
 
@@ -69,12 +90,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userName = et_mobileno.getText().toString().trim();
                 userPassword = et_password.getText().toString().trim();
-                if (!android.util.Patterns.PHONE.matcher(userName).matches()) {
 
-                    et_mobileno.setError("Mobile No is not valid");
-                    Toast.makeText(getApplicationContext(), "Mobile No is not valid!",Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
                 if (userName.length() <7 ||userName.length() >14) {
                     et_mobileno.setError("Enter a valid MobileNo");
@@ -82,74 +98,99 @@ public class LoginActivity extends AppCompatActivity {
                     et_password.setError("Invalid Password");
                 } else {
 
-
-                    if (dbhelper.UserLogin(userName, userPassword)) {
-                        // save user data
-                        SharedPreferences prefs = PreferenceManager
-                                .getDefaultSharedPreferences(LoginActivity.this);
-
-                        SharedPreferences.Editor edit = prefs.edit();
-                        edit.putString("user", userName);
-                        edit.commit();
-
-                        edit.putString("pass", userPassword);
-                        edit.commit();
-
-                        Cursor d = dbhelper.getGivenName(userName);
-                        String full_name = d.getString(1);
-                        Context context = getApplicationContext();
-                        LayoutInflater inflater = getLayoutInflater();
-                        View customToastroot = inflater.inflate(R.layout.accent_toast, null);
-                        TextView text = customToastroot.findViewById(R.id.toast);
-                        text.setText("Successfully Logged In " + full_name);
-                        Toast customtoast = new Toast(context);
-                        customtoast.setView(customToastroot);
-                        customtoast.setGravity(Gravity.BOTTOM | Gravity.BOTTOM, 0, 0);
-                        customtoast.setDuration(Toast.LENGTH_LONG);
-                        customtoast.show();
-
-
-                        finish();
-                        Intent login = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(login);
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
-
-                    }
-                    dbhelper.close();
+                   new Login().execute();
                 }
             }
         });
     }
+    private class Login extends AsyncTask<String, String, String> {
 
+        ProgressDialog progressDialog;
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(LoginActivity.this,
+                    "LogIn",
+                    "Wait.. ");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            //publishProgress("Sleeping..."); // Calls onProgressUpdate()
+
+
+            try {
+
+                restApiResponse = new RestApiRequest(getApplicationContext()).Login(userName,userPassword);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... text) {
+
+
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            // execution of result of Long time consuming operation
+
+
+            response=prefs.getInt("response",0);
+            if(response==200){
+                progressDialog.dismiss();
+                // save user data
+                SharedPreferences prefs = PreferenceManager
+                        .getDefaultSharedPreferences(LoginActivity.this);
+
+                SharedPreferences.Editor edit = prefs.edit();
+                edit.putString("user", userName);
+                edit.commit();
+
+                edit.putString("pass", userPassword);
+                edit.commit();
+                Cursor d = dbhelper.getGivenName(userName);
+                String full_name = d.getString(1);
+                Context context = getApplicationContext();
+                LayoutInflater inflater = getLayoutInflater();
+                View customToastroot = inflater.inflate(R.layout.accent_toast, null);
+                TextView text = customToastroot.findViewById(R.id.toast);
+                text.setText("Successfully Logged In " + full_name);
+                Toast customtoast = new Toast(context);
+                customtoast.setView(customToastroot);
+                customtoast.setGravity(Gravity.BOTTOM | Gravity.BOTTOM, 0, 0);
+                customtoast.setDuration(Toast.LENGTH_LONG);
+                customtoast.show();
+                finish();
+                Intent login = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(login);
+                }
+            else {
+                progressDialog.dismiss();
+                Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
+
+            }
+
+            }
+
+    }
     public void onStart() {
         super.onStart();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         String uname = prefs.getString("user", "");
         String pass = prefs.getString("pass", "");
 
-        String userName = uname;
-        String userPassword = pass;
-        et_mobileno.setText(uname);
+       userName = uname;
+       userPassword = pass;
+        et_mobileno.setText(userName);
 
         try{
             if(userName.length() > 0 && userPassword.length() >0)
             {
-                DBHelper dbUser = new DBHelper(LoginActivity.this);
-
-
-                if(dbUser.UserLogin(userName, userPassword))
-                {
-
-
-
-                    finish();
-                    Intent login =new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(login);
-                }else{
-
-                }
-                dbUser.close();
+                new Login().execute();
             }
 
         }catch(Exception e)

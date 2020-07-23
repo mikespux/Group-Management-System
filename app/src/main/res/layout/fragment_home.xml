@@ -14,22 +14,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="18dp"
+            android:layout_margin="10dp"
+           >
 
-            >
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
 
-                <TableRow
+            <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         app:cardCornerRadius="3dp"
@@ -38,36 +35,38 @@
                         <LinearLayout
                             android:id="@+id/LtMinutes"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:background="@drawable/bg_layouts">
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
                                 android:layout_gravity="center"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/ic_minutes"
-                                android:tint="@color/colorPrimary" />
+                                android:tint="@color/colorPrimary"
+                                android:layout_weight="1"/>
 
                             <TextView
-                                android:layout_width="fill_parent"
-                                android:layout_height="40dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:gravity="center"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="2dp"
+                                android:layout_margin="10dp"
+                                android:padding="10dp"
                                 android:text="@string/menu_minutes"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="14sp"
-                                android:textStyle="bold"/>
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_weight="1"/>
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         app:cardCornerRadius="3dp"
@@ -81,37 +80,39 @@
                             android:background="@drawable/bg_layouts">
 
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_above="@+id/textView4"
-                                android:layout_centerHorizontal="true"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/ic_contributions"
-                                android:tint="@color/colorPrimary" />
+                                android:tint="@color/colorPrimary"
+                                android:layout_weight="1" />
 
                             <TextView
-                                android:layout_width="fill_parent"
-                                android:layout_height="40dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:gravity="center"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="2dp"
+                                android:layout_margin="10dp"
+                                android:padding="10dp"
                                 android:text="@string/menu_contributions"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="14sp"
-                                android:textStyle="bold"/>
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_weight="1"/>
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         app:cardCornerRadius="3dp"
@@ -127,25 +128,26 @@
 >
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
                                 android:layout_gravity="center"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/ic_voting"
                                 android:tint="@color/colorPrimary"
-                                />
+                                android:layout_weight="1" />
 
                             <TextView
-                                android:layout_width="fill_parent"
-                                android:layout_height="40dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:gravity="center"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="2dp"
+                                android:layout_margin="10dp"
+                                android:padding="10dp"
                                 android:text="@string/menu_voting"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="14sp"
-                                android:textStyle="bold"/>
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_weight="1" />
 
 
                         </LinearLayout>
@@ -153,7 +155,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         app:cardCornerRadius="3dp"
@@ -167,34 +169,37 @@
                             android:background="@drawable/bg_layouts"
                             >
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
                                 android:layout_gravity="center"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/ic_members"
                                 android:tint="@color/colorPrimary"
+                                android:layout_weight="1"
                               />
 
                             <TextView
-                                android:layout_width="fill_parent"
-                                android:layout_height="40dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:gravity="center"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="2dp"
+                                android:layout_margin="10dp"
+                                android:padding="10dp"
                                 android:text="@string/menu_members"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_weight="1"/>
 
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
@@ -214,25 +219,26 @@
                             >
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
                                 android:layout_gravity="center"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/ic_calendar"
                                 android:tint="@color/colorPrimary"
-                                />
+                                android:layout_weight="1"/>
 
                             <TextView
-                                android:layout_width="fill_parent"
-                                android:layout_height="40dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:gravity="center"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="2dp"
+                                android:layout_margin="10dp"
+                                android:padding="10dp"
                                 android:text="@string/menu_calendar"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="14sp"
-                                android:textStyle="bold"/>
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_weight="1"/>
 
 
                         </LinearLayout>
@@ -254,36 +260,33 @@
                             android:background="@drawable/bg_layouts"
                             >
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
                                 android:layout_gravity="center"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/ic_notifications"
-                                />
+                                android:layout_weight="1" />
 
                             <TextView
-                                android:layout_width="fill_parent"
-                                android:layout_height="40dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
-
+                                android:layout_margin="10dp"
+                                android:padding="10dp"
                                 android:gravity="center"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="2dp"
                                 android:text="@string/menu_notifications"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_weight="1"/>
 
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:ignore="UselessLeaf" />
+                </LinearLayout>
 
-            </TableLayout>
+
+
 
 
             <LinearLayout

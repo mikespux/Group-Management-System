@@ -5,10 +5,12 @@ import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,15 +98,6 @@ public class MinutesActivity extends AppCompatActivity {
 
 
 
-        listMinutes=this.findViewById(R.id.lvMinutes);
-        listMinutes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View selectedView, int arg2, long arg3) {
-                textAccountId = selectedView.findViewById(R.id.txtAccountId);
-                Log.d("Accounts", "Selected Account Id : " + textAccountId.getText().toString());
-                showUpdateMinuteDialog();
-            }
-        });
 
     }
 
@@ -138,16 +131,23 @@ public class MinutesActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Please enter Agenda for the Meeting", Toast.LENGTH_LONG).show();
                         return;
                     }
-
-                    dbhelper.AddMinute(s_min_agenda,s_min_date, s_min_time);
+                    mIntent= new Intent(getApplicationContext(), NotesActivity.class);
+                    startActivity(mIntent);
+                  //  dbhelper.AddMinute(s_min_agenda,s_min_date, s_min_time);
                     if (success) {
+                        SharedPreferences prefs = PreferenceManager
+                                .getDefaultSharedPreferences(MinutesActivity.this);
+
+                        SharedPreferences.Editor edit = prefs.edit();
+                        edit.putString("agenda", s_min_agenda);
+                        edit.commit();
 
 
-                        Toast.makeText(getApplicationContext(), "Saved successfully!!", Toast.LENGTH_LONG).show();
+                        ///Toast.makeText(getApplicationContext(), "Saved successfully!!", Toast.LENGTH_LONG).show();
 
                         min_agenda.setText("");
 
-                        getdata();
+
                         dMinute.dismiss();
                     }
                 } catch (Exception e) {
@@ -165,7 +165,7 @@ public class MinutesActivity extends AppCompatActivity {
        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //do something with edt.getText().toString();
-                getdata();
+
 
             }
         });
@@ -231,7 +231,7 @@ public class MinutesActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //pass
                 updateMinute();
-                getdata();
+
 
 
 
@@ -299,7 +299,7 @@ public class MinutesActivity extends AppCompatActivity {
                 Toast.makeText(this, "Deleted Successfully!", Toast.LENGTH_LONG).show();
 
                 //this.finish();
-                getdata();
+
             }
             else{
                 Toast.makeText(this, "Could not delete Minute!", Toast.LENGTH_LONG).show();}
@@ -316,28 +316,10 @@ public class MinutesActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void onStart() {
         super.onStart();
-        getdata();
+
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public void getdata(){
 
-        try {
-            int ROWID=0;
-            SQLiteDatabase db= dbhelper.getReadableDatabase();
-            Cursor accounts = db.query( true, Database.MINUTE_TABLE_NAME,null,Database.ROW_ID + ">'" + ROWID + "'",null,null,null,null,null,null);
-
-            String from [] = {  Database.ROW_ID,Database.MIN_NAME , Database.MIN_DATE};
-            int to [] = { R.id.txtAccountId,R.id.txtMinute,R.id.txtTime};
-
-            SimpleCursorAdapter ca  = new SimpleCursorAdapter(this,R.layout.min_item, accounts,from,to);
-
-            listMinutes.setAdapter(ca);
-            dbhelper.close();
-        } catch (Exception ex) {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
 
 
 }

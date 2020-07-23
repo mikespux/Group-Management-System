@@ -32,6 +32,17 @@ android {
         }
     }
 
+    packagingOptions {
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
 }
 
 dependencies {
@@ -68,4 +79,10 @@ dependencies {
     implementation project(':calendarlibrary')
    // implementation rootProject.ext.butterknife
     implementation rootProject.ext.threeTenAbp
+
+    implementation 'com.baoyz.swipemenulistview:library:1.3.0'
+    implementation 'com.mikhaellopez:circularimageview:3.0.2'
+
+    //Ok http
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
 }

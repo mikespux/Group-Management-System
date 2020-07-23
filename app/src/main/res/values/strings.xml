@@ -6,6 +6,7 @@
     <string name="please_wait">Please Wait ...</string>
     <string name="logging_out">Logging Out ...</string>
     <!-- Main Menu -->
+    <string name="menu_notes">Notes</string>
     <string name="menu_minutes">Minutes</string>
     <string name="menu_contributions">Contributions</string>
     <string name="menu_voting">Voting</string>
@@ -42,6 +43,7 @@
     <string name="verify_code">Verify Code</string>
     <string name="enter_verification_code">Enter Verification Code</string>
     <string name="minute"><u>Minute</u></string>
+    <string name="notes"><u>Notes</u></string>
     <string name="title"><u>Title</u></string>
     <string name="time"><u>Date/Time</u></string>
 

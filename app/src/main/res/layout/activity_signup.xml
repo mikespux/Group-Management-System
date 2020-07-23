@@ -53,7 +53,9 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/enter_your_name_as_it_appear_on_id"
-            android:textColor="@color/colorBlack"/>
+            android:textColor="@color/colorBlack"
+            android:layout_marginLeft="@dimen/spacing_small"/>
+
 
         <EditText
             android:layout_width="match_parent"
@@ -65,15 +67,31 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/enter_your_membership_code"
-                    android:textColor="@color/colorBlack"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorBlack"
+                    android:visibility="gone" />
 
                 <EditText
+                    android:id="@+id/et_membercode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/et_membercode"
-                    android:inputType="textCapCharacters"/>
+                    android:inputType="textCapCharacters"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enter_your_national_id"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorBlack" />
+
+                <EditText
+                    android:id="@+id/et_nationalid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btn_pg1"
                     android:layout_width="wrap_content"
@@ -84,140 +102,197 @@
                     app:srcCompat="@drawable/ic_chevron_right_black_24dp"
                     tools:ignore="VectorDrawableCompat" />
     </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/LtPage2"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:visibility="gone">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/enter_your_national_id"
-                    android:textColor="@color/colorBlack"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/et_nationalid"
-                    android:inputType="number"/>
-
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/enter_your_email_address"
-                    android:textColor="@color/colorBlack"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorBlack" />
 
                 <EditText
+                    android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/et_email"
-                    android:inputType="textEmailAddress"/>
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/btn_pg2"
+                    android:inputType="textEmailAddress" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:layout_margin="16dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:srcCompat="@drawable/ic_chevron_right_black_24dp"
-                    tools:ignore="VectorDrawableCompat" />
+                    android:text="Enter your Mobile No"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorBlack" />
+
+                <EditText
+                    android:id="@+id/et_mobileno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btn_bpg2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_margin="16dp"
+                        android:gravity="bottom|left"
+                        app:backgroundTint="@color/colorPrimary"
+                        app:srcCompat="@drawable/ic_baseline_chevron_left_24"
+                        tools:ignore="VectorDrawableCompat" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btn_pg2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="bottom|right"
+                        app:backgroundTint="@color/colorPrimary"
+                        app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                        tools:ignore="VectorDrawableCompat" />
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/LtPage3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Enter your Mobile No"
-                    android:textColor="@color/colorBlack"/>
-
-                <EditText
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/et_mobileno"
-                    android:inputType="textPhonetic"/>
-
-
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:id="@+id/checkVisiblePass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Show Password"
+                        tools:ignore="HardcodedText"
+                       />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Enter your Password"
-                    android:textColor="@color/colorBlack"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorBlack" />
 
+            </LinearLayout>
                 <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_password"
-                android:inputType="textPassword"/>
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Confirm your Password"
-                    android:textColor="@color/colorBlack"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorBlack" />
 
                 <EditText
+                    android:id="@+id/et_cpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/et_cpassword"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/btn_pg3"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:layout_margin="16dp"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:srcCompat="@drawable/ic_chevron_right_black_24dp"
-                    tools:ignore="VectorDrawableCompat" />
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btn_bpg3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_margin="16dp"
+                        android:gravity="bottom|left"
+                        app:backgroundTint="@color/colorPrimary"
+                        app:srcCompat="@drawable/ic_baseline_chevron_left_24"
+                        tools:ignore="VectorDrawableCompat" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btn_pg3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="bottom|right"
+                        app:backgroundTint="@color/colorPrimary"
+                        app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                        tools:ignore="VectorDrawableCompat" />
+                </RelativeLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/LtPage4"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:visibility="gone">
-
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btn_bpg4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="16dp"
+                    android:gravity="bottom|left"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:srcCompat="@drawable/ic_baseline_chevron_left_24"
+                    tools:ignore="VectorDrawableCompat" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/enter_verification_code"
-                    android:textColor="@color/colorBlack"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorBlack" />
 
                 <EditText
+                    android:id="@+id/et_vcode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/et_vcode"
-                    android:inputType="textCapCharacters"/>
+                    android:inputType="textCapCharacters" />
 
 
 
-                <Button
-                    android:id="@+id/btn_pg4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/bg_buttons"
-                    android:text="@string/verify_code"
-                    android:textColor="@drawable/button_text_color"
-                    android:textSize="15sp"
-                    android:visibility="visible" />
+
+
+
+                    <Button
+                        android:id="@+id/btn_pg4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/bg_buttons"
+                        android:text="@string/verify_code"
+                        android:textColor="@drawable/button_text_color"
+                        android:textSize="15sp"
+                        android:visibility="visible" />
+
+
+
             </LinearLayout>
         </LinearLayout>
         </androidx.cardview.widget.CardView>

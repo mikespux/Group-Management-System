@@ -67,8 +67,21 @@ public class DBHelper extends SQLiteOpenHelper {
 				Database.EVENT_TIME + " TEXT," +
 				Database.CLOUDID + " TEXT)";
 
+		//Elections Table
+		String elections_table_sql = "create table " + Database.ELECTION_TABLE_NAME + "( " +
+				Database.ROW_ID + " integer  primary key autoincrement," +
+				Database.ELECTION_NAME + " TEXT," +
+				Database.ELECTION_DATE + " TEXT," +
+				Database.ELECTION_TIME + " TEXT," +
+				Database.CLOUDID + " TEXT)";
 
-
+       //Contributions Table
+		String contributions_table_sql = "create table " + Database.CONTRIBUTIONS_TABLE_NAME + "( " +
+				Database.ROW_ID + " integer  primary key autoincrement," +
+				Database.CON_NAME + " TEXT," +
+				Database.CON_DATE + " TEXT," +
+				Database.CON_TIME + " TEXT," +
+				Database.CLOUDID + " TEXT)";
 
         String DefaultUser = "INSERT INTO " + Database.USERS_TABLE_NAME + " ("
                 + Database.ROW_ID + ", "
@@ -90,8 +103,10 @@ public class DBHelper extends SQLiteOpenHelper {
 			database.execSQL(user_table_sql);
 			database.execSQL(minute_table_sql);
 			database.execSQL(event_table_sql);
+			database.execSQL(elections_table_sql);
+			database.execSQL(contributions_table_sql);
 			// These are Default Values
-			database.execSQL(DefaultUser);
+		//	database.execSQL(DefaultUser);
 
 
 
@@ -148,6 +163,17 @@ public class DBHelper extends SQLiteOpenHelper {
 		Cursor myCursor = db.query(Database.USERS_TABLE_NAME,
 				new String[]{Database.ROW_ID,Database.MOBILENO},
 				"idno" + "='" + username + "'", null, null, null, null);
+
+		if (myCursor != null) {
+			myCursor.moveToFirst();
+		}
+		return myCursor;
+	}
+	public Cursor fetchCode() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor myCursor = db.query(Database.USERS_TABLE_NAME,
+				new String[]{Database.ROW_ID,Database.VERYCODE},
+				"vercode" + "='0'", null, null, null, null);
 
 		if (myCursor != null) {
 			myCursor.moveToFirst();
@@ -241,6 +267,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		initialValues.put(Database.EMAIL, s_email);
 		initialValues.put(Database.MOBILENO, s_mobileno);
 		initialValues.put(Database.PASSWORD, s_password);
+		initialValues.put(Database.VERYCODE, 0);
 		initialValues.put(Database.CLOUDID, 0);
 
 		return db.insert(Database.USERS_TABLE_NAME, null, initialValues);
@@ -277,6 +304,25 @@ public class DBHelper extends SQLiteOpenHelper {
 		initialValues.put(Database.EVENT_DATE, s_evDate);
 		initialValues.put(Database.EVENT_TIME, s_evTime);
 		return db.insert(Database.EVENT_TABLE_NAME, null, initialValues);
+
+	}
+
+	public long AddElection (String s_elName,String s_elDate,String s_elTime) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(Database.ELECTION_NAME, s_elName);
+		initialValues.put(Database.ELECTION_DATE, s_elDate);
+		initialValues.put(Database.ELECTION_TIME, s_elTime);
+		return db.insert(Database.ELECTION_TABLE_NAME, null, initialValues);
+
+	}
+	public long AddContributions (String s_conName,String s_conDate,String s_conTime) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		ContentValues initialValues = new ContentValues();
+		initialValues.put(Database.CON_NAME, s_conName);
+		initialValues.put(Database.CON_DATE, s_conDate);
+		initialValues.put(Database.CON_TIME, s_conTime);
+		return db.insert(Database.CONTRIBUTIONS_TABLE_NAME, null, initialValues);
 
 	}
 }

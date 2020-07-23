@@ -1,6 +1,7 @@
 package com.gms.activities;
 
 import android.annotation.TargetApi;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,7 @@ import com.gms.R;
 
 public class ReportsActivity extends AppCompatActivity {
     public Toolbar toolbar;
-
+    SharedPreferences prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

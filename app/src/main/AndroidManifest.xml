@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.gms">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        android:hardwareAccelerated="false"
+        tools:ignore="GoogleAppIndexingWarning">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
         <activity android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -18,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.SigupActivity"
+            android:name=".activities.SignupActivity"
             android:label="@string/app_name">
         </activity>
         <activity
@@ -48,7 +59,7 @@
             android:name=".activities.SettingsActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".activities.ContributionsActivity"
+            android:name=".activities.ContributionActivity"
             android:label="@string/app_name" />
 
         <activity
@@ -56,6 +67,25 @@
         android:label="@string/app_name" />
         <activity
             android:name=".activities.CalendarActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activities.EventActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activities.ElectionActivity"
+            android:label="@string/app_name" />
+
+        <activity
+            android:name=".activities.ChatActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activities.NotificationActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activities.NotesActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activities.PaymentActivity"
             android:label="@string/app_name" />
     </application>
 

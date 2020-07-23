@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,9 +33,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.gms.R;
+import com.gms.cloud.RestApiRequest;
 import com.gms.database.DBHelper;
 import com.gms.database.Database;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -49,9 +54,12 @@ public class SettingsActivity extends AppCompatActivity {
     CheckBox checkVisiblePass;
     FloatingActionButton btn_updatepass;
     String s_fullname,s_membercode,s_nationalid,s_email,s_mobileno,s_password,s_cpassword;
+    String errors,error,done,fullname,national_id,email,phone,membership_code,updated_at, created_at,id;
     DBHelper dbhelper;
     SQLiteDatabase db;
     SharedPreferences prefs ;
+    String restApiResponse;
+    int response;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -284,32 +292,7 @@ public class SettingsActivity extends AppCompatActivity {
             s_email = et_email.getText().toString();
             s_mobileno = et_mobileno.getText().toString();
 
-
-
-                dbhelper = new DBHelper(this);
-                SQLiteDatabase db = dbhelper.getWritableDatabase();
-                // execute insert command
-
-                ContentValues values = new ContentValues();
-                values.put( Database.FULLNAME, s_fullname);
-                values.put( Database.MEMBERCODE, s_membercode);
-                values.put( Database.NATIONALID, s_nationalid);
-                values.put( Database.EMAIL,s_email);
-                values.put( Database.MOBILENO,s_mobileno);
-
-
-
-                long rows = db.update(Database.USERS_TABLE_NAME, values,
-                        "_id = ?", new String[] { accountId });
-
-                db.close();
-                if (rows > 0){
-                    Toast.makeText(this, "Updated  Successfully!",
-                            Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Toast.makeText(this, "Sorry! Could not update!",
-                            Toast.LENGTH_LONG).show();}
+               new Update().execute();
 
         } catch (Exception e) {
 
@@ -348,7 +331,131 @@ public class SettingsActivity extends AppCompatActivity {
        // dbhelper.close();
 
     }
+    private class Update extends AsyncTask<String, String, String> {
 
+        ProgressDialog progressDialog;
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(SettingsActivity.this,
+                    "Signing UP",
+                    "Wait.. ");
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            //publishProgress("Sleeping..."); // Calls onProgressUpdate()
+
+
+
+
+            try {
+                id=prefs.getString("id", "");
+                restApiResponse = new RestApiRequest(getApplicationContext()).UpdateUser(id,s_fullname,s_nationalid,s_email,s_mobileno,prefs.getString("pass", ""));
+
+
+                JSONObject jsonObject = new JSONObject(restApiResponse);
+                fullname = jsonObject.getString("fullname");
+                membership_code = jsonObject.getString("membership_code");
+                national_id = jsonObject.getString("national_id");
+                email = jsonObject.getString("email");
+                phone = jsonObject.getString("phone");
+                created_at = jsonObject.getString("created_at");
+                updated_at = jsonObject.getString("updated_at");
+                id = jsonObject.getString("id");
+                SharedPreferences.Editor edit = prefs.edit();
+                edit.putString("id", id);
+                edit.commit();
+                Log.i("INFO", "ID: "+ id+" Title"+ fullname+" Message"+ membership_code);
+                try {     progressDialog.dismiss();
+                    if (Integer.valueOf(id).intValue() > 0) {
+
+
+                    }
+                    if (Integer.valueOf(id).intValue()<0) {
+
+                        return null;
+                    }
+                    //System.out.println(value);}
+                } catch (NumberFormatException e) {
+                    //value = 0; // your default value
+                    return null;
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            // execution of result of Long time consuming operation
+
+                response=prefs.getInt("response",0);
+                if(response==200){
+
+                    progressDialog.dismiss();
+
+
+                    dbhelper = new DBHelper(getApplicationContext());
+                    SQLiteDatabase db = dbhelper.getWritableDatabase();
+                    // execute insert command
+
+                    ContentValues values = new ContentValues();
+                    values.put( Database.FULLNAME, s_fullname);
+                    values.put( Database.MEMBERCODE, s_membercode);
+                    values.put( Database.NATIONALID, s_nationalid);
+                    values.put( Database.EMAIL,s_email);
+                    values.put( Database.MOBILENO,s_mobileno);
+
+
+
+                    long rows = db.update(Database.USERS_TABLE_NAME, values,
+                            "_id = ?", new String[] { accountId });
+
+                    db.close();
+                    if (rows > 0){
+                        Toast.makeText(getApplicationContext(), "Updated  Successfully!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Sorry! Could not update!",
+                                Toast.LENGTH_LONG).show();}
+
+                    Log.i("INFO", "ID: " + id + " Title" + fullname + " Message" + membership_code);
+
+                    Cursor d = dbhelper.getGivenName(s_mobileno);
+                    String full_name = d.getString(1);
+                    Context context = getApplicationContext();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View customToastroot = inflater.inflate(R.layout.accent_toast, null);
+                    TextView text = customToastroot.findViewById(R.id.toast);
+                    text.setText("Successfully Updated " + full_name);
+                    Toast customtoast = new Toast(context);
+                    customtoast.setView(customToastroot);
+                    customtoast.setGravity(Gravity.BOTTOM | Gravity.BOTTOM, 0, 0);
+                    customtoast.setDuration(Toast.LENGTH_LONG);
+                    customtoast.show();
+
+
+
+                    return;
+                }
+
+            //finalResult.setText(result);
+        }
+
+
+
+        @Override
+        protected void onProgressUpdate(String... text) {
+
+
+        }
+    }
     private class LogOut extends AsyncTask<Void, Void, String>
     {
         private ProgressDialog dialog;

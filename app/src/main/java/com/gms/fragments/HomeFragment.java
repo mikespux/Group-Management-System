@@ -9,14 +9,14 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.gms.R;
 import com.gms.activities.CalendarActivity;
-import com.gms.activities.ContributionsActivity;
-import com.gms.activities.MainActivity;
+import com.gms.activities.ContributionActivity;
+import com.gms.activities.ElectionActivity;
 import com.gms.activities.MembersActivity;
 import com.gms.activities.MinutesActivity;
+import com.gms.activities.NotificationActivity;
 
 public class HomeFragment extends Fragment {
     Intent mIntent;
@@ -51,10 +51,18 @@ public class HomeFragment extends Fragment {
         LtContributions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mIntent= new Intent(getActivity(), ContributionsActivity.class);
+                mIntent= new Intent(getActivity(), ContributionActivity.class);
                 startActivity(mIntent);
             }
         });
+        LtVoting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mIntent= new Intent(getActivity(), ElectionActivity.class);
+                startActivity(mIntent);
+            }
+        });
+
         LtMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +75,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 mIntent= new Intent(getActivity(), CalendarActivity.class);
+                startActivity(mIntent);
+            }
+        });
+        LtNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mIntent= new Intent(getActivity(), NotificationActivity.class);
                 startActivity(mIntent);
             }
         });

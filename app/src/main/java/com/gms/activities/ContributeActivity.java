@@ -2,10 +2,13 @@ package com.gms.activities;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +22,8 @@ public class ContributeActivity extends AppCompatActivity {
     public Toolbar toolbar;
     FloatingActionButton floating_action_button;
     Intent mIntent;
+    EditText et_amount;
+    SharedPreferences prefs ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +49,20 @@ public class ContributeActivity extends AppCompatActivity {
     }
 
     public void initializer(){
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        et_amount=findViewById(R.id.et_amount);
+
+
+
+
         floating_action_button=findViewById(R.id.floating_action_button);
         floating_action_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mIntent= new Intent(getApplicationContext(), PaymentCardCollections.class);
+                SharedPreferences.Editor edit = prefs.edit();
+                edit.putString("et_amount", et_amount.getText().toString());
+                edit.commit();
+                mIntent= new Intent(getApplicationContext(), PaymentActivity.class);
                 startActivity(mIntent);
             }
         });
